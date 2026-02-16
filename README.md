@@ -456,3 +456,96 @@ You don’t need a right answer; the goal is to think critically and connect the
 #From a distributional perspective, these techniques can further skew political influence if certain demographic or interest groups are more responsive to targeted messaging.
 # Although the statistical methods themselves are neutral, their strategic use can subtly reshape political discourse. 
 # Analysts therefore have an ethical responsibility to evaluate not only the effectiveness of political interventions, but also their broader implications for democratic norms and accountability.
+
+---
+title: "GV300 Assignment 2: Understanding Electoral Participation in the UK"
+author: "Your Student ID Here"
+date: "`r Sys.Date()`"
+output: 
+  pdf_document:
+    toc: false
+    number_sections: true
+---
+
+In this assignment, there are two parts and six sections. When you see `r colorize("Question:", "red")`, it means that there is a question that you have to answer and you will answer it by writing in the text into this .Rmd file. 
+
+Note that some of the code below isn't working 100 percent and so you will have to work it out for yourself and fill in what is missing in order to get it to run. Take your time with this project and good luck! 
+
+But first, save this as your own copy of `assignment2.Rmd` and you'll have a complete template with:
+
+1. All the structure needed
+2. Working example code for every question
+3. Clear placeholders for written responses
+4. Professional formatting with section breaks
+5. Ready to knit to PDF
+
+You just need to:
+
+- Run the code chunks
+- Look at the outputs
+- Write your interpretations in the marked sections
+- Modify some of the Visualisations to make them better/more understandable
+
+# Setup
+
+```{r setup, eval=TRUE}
+knitr::opts_chunk$set(
+  echo = TRUE,
+  warning = FALSE,
+  message = FALSE,
+  fig.width = 8,
+  fig.height = 5
+)
+library(tidyverse)
+library(ggplot2)
+library(patchwork)
+
+colorize <- function(x, color) {
+  if (knitr::is_latex_output()) {
+    sprintf("\\textcolor{%s}{%s}", color, x)
+  } else if (knitr::is_html_output()) {
+    sprintf("<span style='color: %s;'>%s</span>", color,
+      x)
+  } else x
+}
+```
+
+First you need to load the data from Assignment 1. Make sure you have the cleaned uk dataframe with constituency-level turnout data. If you saved your Assignment 1 data, load it or recreate it from the original source:
+
+```{r first, eval=TRUE}
+# uk <- read_csv("uk_election_data.csv")
+uk_csv <- "https://electionresults.parliament.uk/general-elections/6/candidacies.csv"
+uk_raw <- readr::read_csv(uk_csv, show_col_types = FALSE)
+names(uk_raw) <- names(uk_raw) %>% tolower() %>% str_replace_all("\\s+", "_")
+```
+
+As before, the first thing that we need to do is that we are going to clean the data.
+
+```{r cleaning, eval=TRUE}
+# Clean the data
+uk1 <- uk_raw %>%
+  filter(!`election_is_by-election`)
+
+uk2 <- uk1 %>%
+  select(
+    constituency = constituency_name,
+    country      = country_name,
+    valid_votes  = candidate_vote_count,
+    electorate   = electorate
+  )
+
+uk3 <- uk2 %>%
+  group_by(country, constituency) %>%
+  summarise(
+    valid_votes = sum(valid_votes, na.rm = TRUE),
+    electorate  = max(electorate, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+uk <- uk3 %>%
+  mutate(turnout_registered = 100 * valid_votes / electorate) %>%
+  filter(is.finite(turnout_registered), electorate > 0)
+
+# Quick check of the data
+glimpse(uk)
+`
