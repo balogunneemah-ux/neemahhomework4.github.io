@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>GV300 Showcase</title>
+</head>
+<body style="font-family: Arial; margin: 40px;">
+
+<h1>GV300 Quantitative Methods Showcase</h1>
+
+<h2>1. Poisson Model</h2>
+<pre>
+poisson_model <- glm(protest_count ~ campaign_contacts,
+                     family = poisson(link = "log"),
+                     data = df)
+</pre>
+
+<h2>2. Multilevel Model</h2>
+<pre>
+library(lme4)
+model <- lmer(trust ~ 1 + (1 | country), data = df)
+</pre>
+
+<h2>3. Factor Analysis</h2>
+<pre>
+fa <- factanal(~ item1 + item2 + item3 + item4,
+               factors = 1,
+               data = survey_data)
+</pre>
+
+<p><a href="index.html">Back to Home</a></p>
+
+</body>
+</html>
