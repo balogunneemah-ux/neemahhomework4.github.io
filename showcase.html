@@ -37,3 +37,66 @@ fa <- factanal(~ item1 + item2 + item3 + item4,
 <Assignment 1 (- Posit Cloud).pdf>
 <Assignment 2 attempt.pdf>
 <Assignment 3 ALMOST - Posit Cloud.pdf>
+
+<h3></h3># {r group-means-plot}
+ggplot(means_df, aes(x = treatment, y = mean_signup, fill = treatment)) + 
+  geom_col(width = 0.6) + 
+  # This line keeps your existing percentage labels on top of the bars
+  geom_text(
+    aes(label = paste0(round(mean_signup * 100, 1), "%")), 
+    vjust = -0.5
+  ) +
+  # UPDATED: Converts the y-axis labels to percentages (e.g., 0.10 becomes 10%)
+  scale_y_continuous(
+    labels = function(x) paste0(x*100, "%"), 
+    limits = c(0, 0.25), 
+    expand = expansion(mult = c(0, 0.05))
+  ) +
+  scale_fill_manual(values = c("Control homepage" = "gray70", 
+                               "Issue-focused homepage" = "steelblue")) + 
+  # UPDATED: Added a descriptive subtitle as suggested in your written answer
+  labs(
+    x = NULL, 
+    y = "Signup Rate (%)",
+    title = "Supporter Signup Rate by Homepage Version",
+    subtitle = "The issue-focused homepage results in a 4 percentage-point increase in signups."
+  ) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+<h4></h4># Create age range for predictions
+age_seq <- seq(18, 75, by = 1)
+
+# Prediction data
+pred_df <- data.frame(
+  age = rep(age_seq, each = 2),
+  treatment = rep(c(0, 1), times = length(age_seq))
+)
+
+# Predicted probabilities
+pred_df$predicted_signup <- predict(lm_het_age, newdata = pred_df)
+
+# Make treatment readable
+pred_df$treatment <- factor(
+  pred_df$treatment,
+  levels = c(0, 1),
+  labels = c("Control homepage", "Issue-focused homepage")
+)
+
+library(ggplot2)
+
+ggplot(pred_df,
+       aes(x = age,
+           y = predicted_signup,
+           color = treatment)) +
+  geom_line(linewidth = 1.3) +
+  labs(
+    x = "Age",
+    y = "Predicted probability of supporter signup",
+    color = "Homepage version",
+    title = "Heterogeneous treatment effects by age",
+    subtitle = "Predicted probabilities from a treatment–age interaction model"
+  ) +
+  theme_minimal()
+
+
