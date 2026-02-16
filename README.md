@@ -548,4 +548,17 @@ uk <- uk3 %>%
 
 # Quick check of the data
 glimpse(uk)
-`
+
+<img width="861" height="385" alt="Screenshot 2026-01-19 153939" src="https://github.com/user-attachments/assets/07640cef-c052-4b5d-959a-ca5a14e7c50e" />
+
+<img width="868" height="394" alt="Screenshot 2026-01-19 154125" src="https://github.com/user-attachments/assets/aa2f9fdc-12cc-424b-8f03-04522b0bfdd1" />
+
+<img width="853" height="383" alt="Screenshot 2026-01-19 210752" src="https://github.com/user-attachments/assets/1cc60d8b-80a7-4b11-bb8d-4fb459fce3ad" />
+
+<img width="859" height="529" alt="Screenshot 2026-01-19 211909" src="https://github.com/user-attachments/assets/6e7bf77e-e721-4716-9365-3abe6cf5086a" />
+
+<img width="1176" height="762" alt="Screenshot 2026-01-19 214858" src="https://github.com/user-attachments/assets/f764ace8-6c85-4db2-8eee-8afdcd5740ae" />
+
+
+
+
