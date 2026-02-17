@@ -56,4 +56,177 @@ ggplot(means_df, aes(x = treatment, y = mean_signup, fill = treatment)) +
   theme(legend.position = "none")
 
 
-  
+  <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Neemah | GV300 Quantitative Portfolio</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background-color: #f4f6f9;
+  line-height: 1.6;
+}
+
+header {
+  background-color: #1f3c88;
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+}
+
+nav {
+  background-color: #ffffff;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+nav a {
+  margin: 0 15px;
+  text-decoration: none;
+  color: #1f3c88;
+  font-weight: bold;
+}
+
+section {
+  max-width: 900px;
+  margin: 40px auto;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+h1, h2, h3 {
+  margin-top: 0;
+}
+
+.button {
+  display: inline-block;
+  margin: 10px 10px 10px 0;
+  padding: 12px 20px;
+  background-color: #1f3c88;
+  color: white;
+  text-decoration: none;
+  border-radius: 6px;
+}
+
+.button:hover {
+  background-color: #162d66;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #666;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Neemah</h1>
+  <p>BSc Politics & International Relations</p>
+  <p>GV300 Quantitative Methods Portfolio</p>
+</header>
+
+<nav>
+  <a href="index.html">Home</a>
+  <a href="showcase.html">Methods Showcase</a>
+  <a href="assignments.html">Assignments</a>
+</nav>
+
+<section>
+  <h2>About This Portfolio</h2>
+  <p>
+    This website presents applied quantitative methods developed during GV300.
+    The portfolio demonstrates technical competence in statistical modelling,
+    data visualisation, and interpretation of empirical political data.
+  </p>
+
+  <p>
+    The focus areas include count dependent variable models,
+    multilevel (hierarchical) models, and factor analysis.
+    Each section includes model specification, interpretation,
+    and substantive political implications.
+  </p>
+</section>
+
+<section>
+  <h2>Quantitative Methods Implemented</h2>
+
+  <h3>Poisson Count Models</h3>
+  <p>
+    Poisson regression models are used when the dependent variable represents
+    a count of events. In political science, this includes protest frequency,
+    campaign contact counts, or instances of political participation.
+  </p>
+
+  <pre>
+poisson_model <- glm(protest_count ~ campaign_contacts,
+                     family = poisson(link = "log"),
+                     data = df)
+  </pre>
+
+  <h3>Multilevel Models</h3>
+  <p>
+    Multilevel modelling accounts for hierarchical data structures,
+    such as individuals nested within countries. This approach allows
+    for estimation of both fixed and random effects.
+  </p>
+
+  <pre>
+library(lme4)
+model <- lmer(trust ~ 1 + (1 | country), data = df)
+  </pre>
+
+  <h3>Factor Analysis</h3>
+  <p>
+    Factor analysis identifies latent dimensions underlying survey items.
+    This technique reduces dimensionality and captures hidden constructs
+    such as political trust or ideological orientation.
+  </p>
+
+  <pre>
+fa <- factanal(~ item1 + item2 + item3 + item4,
+               factors = 1,
+               data = survey_data)
+  </pre>
+</section>
+
+<section>
+  <h2>Assignments & Applied Work</h2>
+
+  <p>
+    The following assignments demonstrate the applied implementation
+    of statistical modelling techniques, data cleaning,
+    and interpretation of political datasets.
+  </p>
+
+  <a class="button" href="Assignment 1 (- Posit Cloud).pdf" target="_blank">Assignment 1</a>
+  <a class="button" href="Assignment 2 attempt.pdf" target="_blank">Assignment 2</a>
+  <a class="button" href="Assignment 3 ALMOST - Posit Cloud.pdf" target="_blank">Assignment 3</a>
+
+</section>
+
+<section>
+  <h2>Research Interests</h2>
+  <p>
+    My broader academic interests include political behaviour,
+    conflict dynamics, and the strategic use of propaganda.
+    Quantitative methods provide the tools necessary to analyse
+    patterns of participation, trust, and institutional variation
+    across political contexts.
+  </p>
+</section>
+
+<footer>
+  <p>© 2026 Neemah | GV300 Quantitative Portfolio</p>
+</footer>
+
+</body>
+</html>
