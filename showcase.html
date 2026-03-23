@@ -119,3 +119,40 @@ ggplot(pred_df,
 .skill-bar { background-color: #e0e0e0; border-radius: 12px; overflow: hidden; height: 25px; margin-bottom: 15px;}
 .skill-fill { background-color: #1f3c88; height: 100%; text-align: right; padding-right: 10px; color: white; font-weight: bold; border-radius: 12px 0 0 12px; transition: width 1.5s ease-in-out;}
 </style>
+
+
+  <h2>3. Text Analysis (R)</h2>
+
+<p>
+This section applies text analysis techniques in R to examine patterns in language 
+related to protest activity and political behaviour.
+</p>
+
+<h3>Approach</h3>
+<p>
+The text data was tokenised into individual words, cleaned by removing stop words, 
+and analysed to identify the most frequent and meaningful terms.
+</p>
+
+<pre>
+library(tidyverse)
+library(tidytext)
+
+text_data <- tibble(line = 1, text = "Citizens organise protests to demand political change and accountability.")
+
+tidy_text <- text_data %>%
+  unnest_tokens(word, text) %>%
+  anti_join(stop_words)
+
+word_counts <- tidy_text %>%
+  count(word, sort = TRUE)
+
+word_counts
+</pre>
+
+<h3>Interpretation</h3>
+<p>
+The most frequent terms highlight themes of political mobilisation, collective action, 
+and demands for accountability. This complements the quantitative models by providing 
+insight into the language and narratives surrounding protest behaviour.
+</p>
